@@ -23,8 +23,17 @@ jobs:
           API_KEY: ${{ secrets.MYM_API_KEY }}
         run: |
           python transport_request.py
-      - name: upload result
+      - name: Upload result
         uses: actions/upload-artifact@v4
         with:
           name: result
-          path: $GITHUB_WORKSPACE/result
+          path: ./result
+      - name: Push result
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run:  |        
+          git config --global user.email "channing_tongcn@outlook.com"
+          git config --global user.name "channing tong"  
+          git add -A
+          git commit -m "update inner ring roads trunk infomation"
+          git push origin main
