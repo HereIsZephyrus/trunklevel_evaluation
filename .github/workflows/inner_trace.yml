@@ -30,3 +30,8 @@ jobs:
         with:
           name: result
           path: ./result
+      - name: push result
+        run:  |          
+          git add -A
+          git commit -m "update inner ring roads trunk infomation"
+          git push

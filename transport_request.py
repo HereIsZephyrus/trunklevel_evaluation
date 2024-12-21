@@ -53,7 +53,8 @@ def main():
         
     with open('./result/basic_info.csv', mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-        writer.writerow([f'{start_time}-{term_time}',basicInfo])
+        basicInfo.insert(0,f'{start_time}-{term_time}')
+        writer.writerow(basicInfo)
 
     with open('./result/section_info.csv', mode='a', newline='', encoding='utf-8') as file:
         fieldnames = ['time','distance', 'speed', 'status','trend']
