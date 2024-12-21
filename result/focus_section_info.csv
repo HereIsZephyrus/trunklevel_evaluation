@@ -10,3 +10,5 @@ time,distance,speed,status,trend
 time,distance,speed,status,trend
 21-21-25,1340,4.73,4,持平
 21-21-25,2230,18.3,2,加重
+time,distance,speed,status,trend
+21-21-31,1340,4.7,4,加重
