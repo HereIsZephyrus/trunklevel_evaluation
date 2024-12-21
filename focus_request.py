@@ -11,48 +11,53 @@ def main():
     start_time = current_time.strftime(r"%d-%H-%M");
     #print("开始请求时间:", start_time)
 
-    url = "https://api.map.baidu.com/traffic/v1/bound"
-    #ak = os.environ.get('API_KEY')
-    ak = "ItZID62ENDvxWJ3L9K1pfGkBz6S24iSS"
-    evaluation = []
+    url = "https://api.map.baidu.com/traffic/v1/road"
+    ak = os.environ.get('API_KEY')
+    roads = ['京汉大道','江汉路']
+    if not os.path.exists('./result/focus_basic_info.csv'):
+        os.makedirs(os.path.dirname('./result/basic_info.csv'), exist_ok=True)
+        with open('./result/basic_info.csv', mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            header = roads.copy()
+            header.insert(0,'name')
+            writer.writerow(header)
+
+    basicInfo = []
     sectionInfo = []
-    params = {
-        "bounds":    "30.548317,114.293140;30.549021,114.294639",
-        "coord_type_input":    "wgs84",
-        "coord_type_output":    "gcj02",
+    for road in roads:
+        params = {
+        "road_name":road,
+        "city":    "武汉市",
         "ak":       ak,
-    }
-    response = requests.get(url=url, params=params)
-    if response:
-        data = response.json()
-        if (data["status"] == 0):
-            evaluation.append(data["evaluation"]["status"])
-            trafficinfo = data["road_traffic"]
-            if "congestion_sections" in trafficinfo:
-                sections = trafficinfo["congestion_sections"]
-                for section in sections:
-                    sectionItem = {
-                        'time' : start_time,
-                        "distance" : section["congestion_distance"],
-                        "speed" : section["speed"],
-                        "status" : section["status"],
-                        "trend" : section["congestion_trend"],
-                    }
-                    sectionInfo.append(sectionItem)
+        }
+        response = requests.get(url=url, params=params)
+        if response:
+            data = response.json()
+            if (data["status"] == 0):
+                evaluation = data["evaluation"]
+                basicInfo.append(evaluation["status"])
+                trafficinfo = data["road_traffic"][0]
+                if "congestion_sections" in trafficinfo:
+                    sections = trafficinfo["congestion_sections"]
+                    for section in sections:
+                        sectionItem = {
+                            'time' : start_time,
+                            "distance" : section["congestion_distance"],
+                            "speed" : section["speed"],
+                            "status" : section["status"],
+                            "trend" : section["congestion_trend"],
+                        }
+                        sectionInfo.append(sectionItem)
     current_time = datetime.now() + timedelta(hours=8)
-    term_time = current_time.strftime(r"%d-%H-%M");
+    term_time = current_time.strftime(r"%d_%H_%M");
     #print("结束请求时间:", term_time)
         
-    if not os.path.exists('./result/focus_info.csv'):
-        os.makedirs(os.path.dirname('./result/focus_info.csv'), exist_ok=True)
-    with open('./result/focus_info.csv', mode='a', newline='', encoding='utf-8') as file:
+    with open('./result/focus_basic_info.csv', mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-        evaluation.insert(0,f'{start_time}_{term_time}')
-        writer.writerow(evaluation)
+        basicInfo.insert(0,f'{start_time}-{term_time}')
+        writer.writerow(basicInfo)
 
-    if not os.path.exists('./result/focus_trunksection.csv'):
-        os.makedirs(os.path.dirname('./result/focus_trunksection.csv'), exist_ok=True)
-    with open('./result/focus_trunksection.csv', mode='a', newline='', encoding='utf-8') as file:
+    with open('./result/focus_section_info.csv', mode='a', newline='', encoding='utf-8') as file:
         fieldnames = ['time','distance', 'speed', 'status','trend']
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()

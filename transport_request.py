@@ -36,7 +36,7 @@ def main():
             if (data["status"] == 0):
                 evaluation = data["evaluation"]
                 basicInfo.append(evaluation["status"])
-                trafficinfo = data["road_traffic"]
+                trafficinfo = data["road_traffic"][0]
                 if "congestion_sections" in trafficinfo:
                     sections = trafficinfo["congestion_sections"]
                     for section in sections:
