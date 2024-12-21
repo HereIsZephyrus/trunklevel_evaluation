@@ -17,7 +17,7 @@ def main():
         os.makedirs(os.path.dirname('./result/basic_info.csv'), exist_ok=True)
         with open('./result/basic_info.csv', mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
-            header = roads
+            header = roads.copy()
             header.insert(0,'name')
             writer.writerow(header)
 
