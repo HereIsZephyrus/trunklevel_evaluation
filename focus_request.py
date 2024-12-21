@@ -56,7 +56,7 @@ def main():
                         }
                         sectionInfo.append(sectionItem)
     current_time = datetime.now() + timedelta(hours=8)
-    term_time = current_time.strftime(r"%d_%H_%M");
+    term_time = current_time.strftime(r"%d-%H-%M");
     #print("结束请求时间:", term_time)
         
     with open('./result/focus_basic_info.csv', mode='a', newline='', encoding='utf-8') as file:
