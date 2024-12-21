@@ -1,7 +1,7 @@
 import pandas as pd
 
 Lsafe = 0.06 # safe distace : 60m
-viewGap = 10
+viewGap = 15
 roadInfo = pd.read_csv('./innerroad_infos.csv')
 #focus_roadInfo = pd.read_csv('./focus_innerroad_infos.csv')
 congestion = pd.read_csv('./section_info.csv')
