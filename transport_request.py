@@ -50,11 +50,11 @@ def main():
     term_time = current_time.strftime(r"%d_%H_%M");
     #print("结束请求时间:", term_time)
         
-    with open('./basic_info.csv', mode='a', newline='', encoding='utf-8') as file:
+    with open('.result/basic_info.csv', mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow([f'{start_time}-{term_time}',basicInfo])
 
-    with open('./section_info.csv', mode='a', newline='', encoding='utf-8') as file:
+    with open('.result/section_info.csv', mode='a', newline='', encoding='utf-8') as file:
         fieldnames = ['time','distance', 'speed', 'status','trend']
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
