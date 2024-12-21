@@ -21,6 +21,12 @@ def main():
             header = roads.copy()
             header.insert(0,'name')
             writer.writerow(header)
+    if not os.path.exists('./result/focus_section_info.csv'):
+        os.makedirs(os.path.dirname('./result/focus_section_info.csv'), exist_ok=True)
+        with open('./result/focus_section_info.csv', mode='w', newline='', encoding='utf-8') as file:
+            fieldnames = ['name','time','distance', 'speed', 'status','trend']
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            writer.writeheader()
 
     basicInfo = []
     sectionInfo = []
@@ -41,6 +47,7 @@ def main():
                     sections = trafficinfo["congestion_sections"]
                     for section in sections:
                         sectionItem = {
+                            'name' : road,
                             'time' : start_time,
                             "distance" : section["congestion_distance"],
                             "speed" : section["speed"],
@@ -54,13 +61,13 @@ def main():
         
     with open('./result/focus_basic_info.csv', mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-        basicInfo.insert(0,f'{start_time}-{term_time}')
+        basicInfo.insert(0,f'{start_time}')
         writer.writerow(basicInfo)
 
     with open('./result/focus_section_info.csv', mode='a', newline='', encoding='utf-8') as file:
         fieldnames = ['time','distance', 'speed', 'status','trend']
         writer = csv.DictWriter(file, fieldnames=fieldnames)
-        writer.writeheader()
+        #writer.writeheader()
         writer.writerows(sectionInfo)
 
 if __name__ == '__main__':

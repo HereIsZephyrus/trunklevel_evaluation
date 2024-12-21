@@ -1,7 +1,7 @@
-name: simenkou roads trace task
+name: jianghan roads trace task
 on:
   schedule:
-    - cron: '*/5 22-23,0-14 * * *'           # 非高峰期每半小时执行一次(用10min做测试)  UTC+8 6-22
+    - cron: '*/5 22-23,0-14 * * *'
     
   workflow_dispatch:
 jobs:
@@ -19,7 +19,7 @@ jobs:
           pip install requests
       - name: Run python task
         env:
-          API_KEY: ${{ secrets.COM_API_KEY }}
+          API_KEY: ${{ secrets.TCB_API_KEY }}
         run: |
           python focus_request.py
       - name: Upload result
@@ -34,5 +34,5 @@ jobs:
           git config --global user.email "channing_tongcn@outlook.com"
           git config --global user.name "channing tong"  
           git add -A
-          git commit -m "update inner ring roads trunk infomation"
+          git commit -m "update inner jianghan roads trunk infomation"
           git push origin main
