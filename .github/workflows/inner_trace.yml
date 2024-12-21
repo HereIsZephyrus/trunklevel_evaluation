@@ -31,7 +31,9 @@ jobs:
           name: result
           path: ./result
       - name: push result
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:  |          
           git add -A
           git commit -m "update inner ring roads trunk infomation"
-          git push
+          git push origin main
