@@ -4,10 +4,11 @@ import requests
 import csv
 import os
 from datetime import datetime
+from datetime import timedelta
 
 def main():
-    current_time = datetime.now()
-    start_time = current_time.strftime(r"%d_%H_%M");
+    current_time = datetime.now() + timedelta(hours=8)
+    start_time = current_time.strftime(r"%d-%H-%M");
     #print("开始请求时间:", start_time)
 
     url = "https://api.map.baidu.com/traffic/v1/road"
@@ -47,7 +48,7 @@ def main():
                             "trend" : section["congestion_trend"],
                         }
                         sectionInfo.append(sectionItem)
-    current_time = datetime.now()
+    current_time = datetime.now() + timedelta(hours=8)
     term_time = current_time.strftime(r"%d_%H_%M");
     #print("结束请求时间:", term_time)
         

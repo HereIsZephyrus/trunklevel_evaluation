@@ -4,14 +4,16 @@ import requests
 import csv
 import os
 from datetime import datetime
+from datetime import timedelta
 
 def main():
-    current_time = datetime.now()
-    start_time = current_time.strftime(r"%d_%H_%M");
+    current_time = datetime.now() + timedelta(hours=8)
+    start_time = current_time.strftime(r"%d-%H-%M");
     #print("开始请求时间:", start_time)
 
     url = "https://api.map.baidu.com/traffic/v1/bound"
-    ak = os.environ.get('API_KEY')
+    #ak = os.environ.get('API_KEY')
+    ak = "ItZID62ENDvxWJ3L9K1pfGkBz6S24iSS"
     evaluation = []
     sectionInfo = []
     params = {
@@ -24,7 +26,7 @@ def main():
     if response:
         data = response.json()
         if (data["status"] == 0):
-            evaluation.append(data["evaluation"])
+            evaluation.append(data["evaluation"]["status"])
             trafficinfo = data["road_traffic"]
             if "congestion_sections" in trafficinfo:
                 sections = trafficinfo["congestion_sections"]
@@ -37,15 +39,15 @@ def main():
                         "trend" : section["congestion_trend"],
                     }
                     sectionInfo.append(sectionItem)
-    current_time = datetime.now()
-    term_time = current_time.strftime(r"%d_%H_%M");
+    current_time = datetime.now() + timedelta(hours=8)
+    term_time = current_time.strftime(r"%d-%H-%M");
     #print("结束请求时间:", term_time)
         
     if not os.path.exists('./result/focus_info.csv'):
         os.makedirs(os.path.dirname('./result/focus_info.csv'), exist_ok=True)
     with open('./result/focus_info.csv', mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-        evaluation.insert(0,f'{start_time}-{term_time}')
+        evaluation.insert(0,f'{start_time}_{term_time}')
         writer.writerow(evaluation)
 
     if not os.path.exists('./result/focus_trunksection.csv'):
