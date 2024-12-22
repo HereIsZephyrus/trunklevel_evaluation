@@ -36,4 +36,5 @@ jobs:
           git config --global user.name "channing tong"  
           git add -A
           git commit -m "update inner ring roads trunk infomation"
+          git pull origin main
           git push origin main
