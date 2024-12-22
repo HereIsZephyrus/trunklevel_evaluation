@@ -1,8 +1,8 @@
 name: innner ring roads trace task
 on:
   schedule:
-    - cron: '*/20 22-23,1-9 * * *'         # 非高峰期每半小时执行一次(用10min做测试)  UTC+8 6-7
-    - cron: '*/20 23,0-1,9-11 * * *'       # 高峰期每十分钟执行一次   UTC+8 7-9,17-19
+    - cron: '40 22 * * *'         # 每天06:30
+    - cron: '*/20 23,0-11 * * *'  # 每20分钟检测一次
     
   workflow_dispatch:
 jobs:
