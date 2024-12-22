@@ -34,7 +34,7 @@ jobs:
           git config --global user.email "channing_tongcn@outlook.com"
           git config --global user.name "channing tong"  
           git config --global pull.rebase true
-          git pull origin main
           git add -A
           git commit -m "update inner jianghan roads trunk infomation"
+          git pull origin main
           git push -f origin main
