@@ -65,7 +65,7 @@ def main():
         writer.writerow(basicInfo)
 
     with open('./result/focus_section_info.csv', mode='a', newline='', encoding='utf-8') as file:
-        fieldnames = ['time','distance', 'speed', 'status','trend']
+        fieldnames = ['name','time','distance', 'speed', 'status','trend']
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         #writer.writeheader()
         writer.writerows(sectionInfo)
