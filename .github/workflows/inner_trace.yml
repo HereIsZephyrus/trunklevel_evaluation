@@ -1,8 +1,7 @@
 name: innner ring roads trace task
 on:
   schedule:
-    - cron: '40 22 * * *'         # 每天06:30
-    - cron: '*/20 23,0-11 * * *'  # 每20分钟检测一次
+    - cron: '*/20 0-1,11-14 * * *'  # 每20分钟检测一次
     
   workflow_dispatch:
 jobs:
@@ -20,7 +19,7 @@ jobs:
           pip install requests
       - name: Run python task
         env:
-          API_KEY: ${{ secrets.COM_API_KEY }}
+          API_KEY: ${{ secrets.TCB_API_KEY }}
         run: |
           python transport_request.py
       - name: Upload result
