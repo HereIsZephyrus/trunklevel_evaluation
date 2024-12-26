@@ -9,7 +9,7 @@ opts.ExtraColumnsRule = "ignore";
 opts.EmptyLineRule = "read";
 opts = setvaropts(opts, "time", "WhitespaceRule", "preserve");
 opts = setvaropts(opts, "time", "EmptyFieldRule", "auto");
-tbl = readtable("./jianghan_section_info_adjust.csv", opts);
+tbl = readtable("../result/jianghan_section_info_adjust.csv", opts);
 time = tbl.time(2:end);
 level = tbl.status(2:end);
 speed = tbl.speed(2:end);
@@ -23,7 +23,7 @@ opts.VariableTypes = ["datetime", "double"];
 opts.ExtraColumnsRule = "ignore";
 opts.EmptyLineRule = "read";
 opts = setvaropts(opts, "time", "InputFormat", "yyyy-MM-dd HH:mm:ss");
-tbl = readtable("./count_result_total_adjust.csv", opts);
+tbl = readtable("../result/count_result_total_adjust.csv", opts);
 ntime = tbl.time(2:end);
 ncount = tbl.count1(2:end);
 %% load colormap
