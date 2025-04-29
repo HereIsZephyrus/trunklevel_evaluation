@@ -7,7 +7,7 @@ import math
 
 model = YOLO('yolov8n.pt')
 
-videoPath = "C:\\Users\\Administrator\\Videos\\traffic\\5-merge.mp4"
+videoPath = "/windows/Users/Administrator/Videos/traffic/combine-copress.mp4"
 
 cap = cv2.VideoCapture(videoPath)
 if not cap.isOpened():
